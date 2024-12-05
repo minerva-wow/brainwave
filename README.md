@@ -16,3 +16,5 @@ A sleek AI-focused website built with React.js and Tailwind CSS, offering a mode
 - **AI Showcase** sections for displaying AI features
 - **Customizable Components** for easy adaptation
 
+
+[Live Demo](https://brainwave-andrea.up.railway.app/) ⚡ (Railway free tier, cold starts may occur)
