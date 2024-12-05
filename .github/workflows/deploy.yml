@@ -26,16 +26,19 @@ jobs:
         git fetch
         git checkout deploy || git checkout -b deploy  # 如果 deploy 分支不存在，则创建它
 
-    # 4. 清理 deploy 分支（删除非 dist 内容）
-    - name: Remove non-dist files from deploy branch
+    # 4. 清理 deploy 分支（删除所有文件）
+    - name: Remove all files in deploy branch
       run: |
-        # 删除所有文件但保留 dist 文件夹内容
-        git rm -rf .
-        git checkout main -- dist/*  # 仅从 main 分支拉取 dist 文件夹中的文件，不拉取 dist 目录
+        git rm -rf .  # 删除 deploy 分支中的所有文件
 
-    # 5. 提交并推送 deploy 分支
+    # 5. 检出 main 分支中的 dist 目录（包括 dist 目录本身）
+    - name: Checkout dist directory
+      run: |
+        git checkout main -- dist  # 检出整个 dist 目录
+
+    # 6. 提交并推送 deploy 分支
     - name: Commit and push changes
       run: |
-        git add .  # 添加 dist 文件夹中的所有文件
-        git commit -m "Sync dist folder contents (without dist directory)"
+        git add .  # 添加 dist 目录及其内容
+        git commit -m "Sync dist directory contents"
         git push origin deploy
